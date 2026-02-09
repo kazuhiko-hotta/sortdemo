@@ -1,0 +1,20 @@
+[project]
+name = "sortdemo"
+version = "0.1.0"
+description = "Sorting algorithm visualizer with GTK 4 and Libadwaita"
+readme = "AGENTS.md"
+requires-python = ">=3.13"
+dependencies = [
+    "PyGObject>=3.46.0",
+]
+
+[project.scripts]
+sortdemo = "sortdemo.main:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["sortdemo", "sortdemo.algorithms"]
