@@ -30,6 +30,7 @@ class SortDemoWindow(Adw.ApplicationWindow):
             self.algo_model.append(name)
 
         self.algo_dropdown = Gtk.DropDown(model=self.algo_model)
+        self.algo_dropdown.connect("notify::selected", self.on_algo_changed)
         header_bar.set_title_widget(self.algo_dropdown)
 
         # Controls in Header
@@ -95,6 +96,11 @@ class SortDemoWindow(Adw.ApplicationWindow):
         # For now, we reset everything on resize
         self.stop_sorting()
         self.status_label.set_label("Steps: 0")
+
+    def on_algo_changed(self, dropdown, _param):
+        self.stop_sorting()
+        self.status_label.set_label("Steps: 0")
+        self.canvas.update_view([])
 
     def on_reset_clicked(self, btn):
         self.on_size_changed(self.size_scale)

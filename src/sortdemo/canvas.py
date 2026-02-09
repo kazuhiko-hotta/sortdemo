@@ -1,6 +1,6 @@
-import gi
+import logging
 import random
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk
 
 class SortCanvas(Gtk.DrawingArea):
     def __init__(self):
@@ -14,9 +14,10 @@ class SortCanvas(Gtk.DrawingArea):
         
         self.data = []
         self.active_indices = []
+        self._logger = logging.getLogger(__name__)
 
     def generate_data(self, size):
-        print(f"Generating data with size: {size}") # Debug
+        self._logger.debug("Generating data with size: %d", size)
         self.data = list(range(1, size + 1))
         random.shuffle(self.data)
         self.active_indices = []
