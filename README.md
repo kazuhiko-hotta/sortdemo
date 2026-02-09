@@ -67,6 +67,14 @@ This project uses `uv` for dependency management.
     uv run sortdemo
     ```
 
+## Testing
+
+You can run tests using `pytest` through `uv`:
+
+```bash
+uv run pytest
+```
+
 ## Usage
 
 1.  Select a sorting algorithm from the dropdown menu in the header.
@@ -92,6 +100,8 @@ sortdemo/
 │       ├── window.py     # Main window and UI logic
 │       ├── canvas.py     # Drawing area (Gtk.DrawingArea)
 │       └── algorithms/   # Sorting algorithm implementations
+├── tests/                # Unit tests
+│   └── test_bubble.py
 ├── pyproject.toml        # Project metadata and dependencies
 └── README.md
 ```
