@@ -1,17 +1,58 @@
+"""
+バブルソートアルゴリズムモジュール。
+
+バブルソートは最も基本的なソートアルゴリズムの一つ。
+隣接する2要素を比較し、順序が逆なら交換する操作を
+配列全体に対して繰り返すことでソートを行う。
+
+計算量:
+  - 最悪・平均: O(n²)
+  - 最良（整列済み）: O(n²)  ※早期終了の最適化なし
+  - 空間: O(1)（インプレース）
+"""
+
+
 class BubbleSort:
+    """バブルソートの可視化用実装。
+
+    ジェネレータベースで1ステップずつソートを進め、
+    各ステップで比較・交換中のインデックスとステップ数を返す。
+
+    Attributes:
+        data (list[int]): ソート対象のデータ配列（インプレースで変更される）
+    """
+
     def __init__(self, data):
+        """バブルソートインスタンスを初期化する。
+
+        Args:
+            data (list[int]): ソート対象のデータ配列
+        """
         self.data = data
 
     def sort(self):
+        """バブルソートをジェネレータとして実行する。
+
+        外側ループの各パスで、未整列部分の隣接要素を比較・交換する。
+        1パスごとに最大の要素が末尾に「浮き上がる」（バブルする）。
+
+        Yields:
+            tuple[list[int], int]: (アクティブなインデックスのリスト, 累計ステップ数)
+                - 比較時: 比較中の2要素 [j, j+1]
+                - 交換後: 交換した2要素 [j, j+1]
+        """
         n = len(self.data)
         steps = 0
+
         for i in range(n):
+            # i 回目のパス: 末尾 i 個は整列済みなので n-i-1 まで比較
             for j in range(0, n - i - 1):
                 steps += 1
-                # Yield current comparison indices
+                # 比較中の2要素をハイライト
                 yield [j, j + 1], steps
-                
+
                 if self.data[j] > self.data[j + 1]:
+                    # 順序が逆なので交換
                     self.data[j], self.data[j + 1] = self.data[j + 1], self.data[j]
-                    # Yield after swap
+                    # 交換後の状態もハイライトして表示
                     yield [j, j + 1], steps
